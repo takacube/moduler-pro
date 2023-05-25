@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  frontend:
+    build:
+      dockerfile: frontend/Dockerfile
+    volumes:
+      - ./frontend:/usr/src/app
+    command: sh -c "cd app && ng serve --open --host 0.0.0.0"
+    ports:
+      - "4200:4200"
+    stdin_open: true
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - ./backend:/usr/src/app
+    command: sh -c "cd app && nest start"
+    ports:
+      - "3000:3000"
+    stdin_open: true
